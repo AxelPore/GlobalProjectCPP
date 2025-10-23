@@ -1,4 +1,4 @@
-gitignore
+.gitignore
 .vs/
 CMakePresets.json
 out/
