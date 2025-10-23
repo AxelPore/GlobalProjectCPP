@@ -12,10 +12,10 @@ endif()
 project ("GlobalProject")
 
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (GlobalProject "GlobalProject.cpp" "GlobalProject.h")
+add_executable (GlobalProject   "common/ParseDecimal.cpp" "common/ParseDecimal.h" "main.cpp" "main.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET GlobalProject PROPERTY CXX_STANDARD 20)
+  set_property(TARGET GlobalProject PROPERTY CXX_STANDARD 23)
 endif()
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
