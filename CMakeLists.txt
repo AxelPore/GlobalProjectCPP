@@ -1,7 +1,8 @@
-﻿# CMakeList.txt : projet CMake pour GlobalProject, incluez la source et définissez
-# la logique spécifique au projet ici.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.24)
+project(GlobalProjectCpp LANGUAGES CXX C)
+
+set(CMAKE_CXX_STANDARD 23)
+
 
 # Activez Rechargement à chaud pour les compilateurs MSVC si cela est pris en charge.
 if (POLICY CMP0141)
@@ -9,13 +10,18 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("GlobalProject")
+add_library(Common SHARED "Common/ParseDecimal.cpp")
+
+target_include_directories(Common
+ PUBLIC "Common/ParseDecimal.h"
+)
+
+#target_link_libraries(Common
+#	PUBLIC GTest::GTest GTest::Main # utilisé en interne
+#)
+
 
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (GlobalProject   "common/ParseDecimal.cpp" "common/ParseDecimal.h" "main.cpp" "main.h")
-
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET GlobalProject PROPERTY CXX_STANDARD 23)
-endif()
+add_executable (GlobalProject "main.cpp")
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
